@@ -8,7 +8,7 @@ import mediaRoutes from "./routes/media.js"
 import path from "path"
 import { fileURLToPath } from "url"
 import userRoutes from "./routes/user.js"
-
+import cookieParser from "cookie-parser"
 
 config()
 
@@ -20,7 +20,11 @@ const __dirname = path.dirname(__filename)
 app.use('/media', express.static(path.join(__dirname, 'uploads')))
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
+app.use(cookieParser())
 
 mongoose
   .set("strictQuery", true)

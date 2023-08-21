@@ -33,7 +33,14 @@ export const registerUser = async (req, res, next) => {
       expiresIn: "1y",
     });
 
-    res.status(201).json({ message: "successfull", token });
+    res
+      .cookie("auth_token", token, {
+        httpOnly: true,
+        maxAge: 365 * 24 * 60 * 60 * 1000,
+        secure: true,
+      })
+      .status(201)
+      .json({ message: "successfull", token });
   } catch (error) {
     res
       .status(500)
@@ -59,7 +66,14 @@ export const loginUser = async (req, res, next) => {
       expiresIn: "1y",
     });
 
-    res.status(201).json({ message: "successfull", token });
+    res
+      .cookie("auth_token", token, {
+        httpOnly: true,
+        maxAge: 365 * 24 * 60 * 60 * 1000,
+        secure: true,
+      })
+      .status(201)
+      .json({ message: "successfull", token });
   } catch (error) {
     res
       .status(500)
